@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monthly Overview</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<header>
+  <h1>Monthly Overview</h1>
+</header>
+<main>
+  <div class="section months">
+    <canvas id="monthlyChart"></canvas>
+  </div>
+  <div style="text-align:center; margin-top:1rem;">
+    <button id="exportMonthlyCSV">Export Monthly CSV</button>
+  </div>
+  <div style="text-align:center; margin-top:1rem;">
+    <a href="index.html"><button>Back to Home</button></a>
+  </div>
+</main>
+<script src="script.js"></script>
+<script>
+  renderMonthlyChart();
+</script>
+</body>
+</html>

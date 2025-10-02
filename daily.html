@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Tasks</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Daily Tasks</h1>
+</header>
+<main>
+  <div class="section" id="dailyTasksContainer">
+    <!-- Daily tasks will render here -->
+  </div>
+  <div style="text-align:center; margin-top:1rem;">
+    <button onclick="clearDailyTasks()">Reset Daily</button>
+  </div>
+  <div style="text-align:center; margin-top:1rem;">
+    <a href="index.html"><button>Back to Home</button></a>
+  </div>
+</main>
+<footer>Plug-and-play roadmap tracker • Client-side</footer>
+<script src="script.js"></script>
+<script>
+  renderDailyTasks();
+</script>
+</body>
+</html>
