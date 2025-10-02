@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1-Lakh Roadmap Tracker</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #f5f3ff, #ede9fe);
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  header { background-color: #7c3aed; color: white; padding: 1rem 2rem; text-align: center; }
+  h1 { margin: 0; }
+  main { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+  .section { background: white; padding: 1.5rem; border-radius: 1rem; margin-bottom: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+  .streams, .tasks, .months { display: flex; flex-direction: column; gap: 1rem; }
+  .stream, .task { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 1rem; background: #f3e8ff; border-radius: 0.5rem; }
+  .stream input { width: 100px; padding: 0.2rem; border-radius: 0.3rem; border: 1px solid #ccc; text-align: right; }
+  .task input { margin-right: 0.5rem; }
+  canvas { width: 100%; max-height: 300px; }
+  footer { text-align: center; padding: 1rem; color: #666; }
+  button { background-color: #7c3aed; color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.5rem; cursor: pointer; }
+  button:hover { background-color: #5b21b6; }
+</style>
+</head>
+<body>
+<header>
+  <h1>1-Lakh Roadmap Tracker</h1>
+</header>
+<main>
+  <div class="section months">
+    <h2>Monthly Targets vs Earned</h2>
+    <canvas id="chart"></canvas>
+  </div>
+
+  <div class="section streams">
+    <h2>Income Streams (Edit Earned)</h2>
+  </div>
+
+  <div class="section tasks">
+    <h2>Weekly Tasks</h2>
+  </div>
+
+  <div style="text-align:center;">
+    <button id="exportBtn">Export to CSV</button>
+  </div>
+</main>
+<footer>
+  Plug-and-play roadmap tracker • All data client-side
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // --- DATA ---
+  const months = [
+    { name: "Jan", target: 25000, earned: 25000 },
+    { name: "Feb", target: 30000, earned: 0 },
+    { name: "Mar", target: 35000, earned: 0 },
+    { name: "Apr", target: 40000, earned: 0 },
+    { name: "May", target: 45000, earned: 0 },
+    { name: "Jun", target: 50000, earned: 0 },
+    { name: "Jul", target: 55000, earned: 0 },
+    { name: "Aug", target: 60000, earned: 0 },
+    { name: "Sep", target: 65000, earned: 0 },
+    { name: "Oct", target: 70000, earned: 0 },
+    { name: "Nov", target: 75000, earned: 0 },
+    { name: "Dec", target: 80000, earned: 0 },
+  ];
+
+  const streams = [
+    { name: "Full-time Job", target: 35000, earned: 25000 },
+    { name: "Freelance Photo/Design", target: 25000, earned: 0 },
+    { name: "Creator (YT + Collabs + UGC)", target: 20000, earned: 0 },
+    { name: "LinkedIn Services", target: 15000, earned: 0 },
+  ];
+
+  const tasks = [
+    "Post 3-4 LinkedIn posts/week",
+    "3-4 Shorts/Reels per week",
+    "5-10 brand pitches/week",
+    "1 long YouTube video/week",
+    "2 hrs/day blocked for side projects",
+    "Weekly income review (Sunday)"
+  ];
+
+  // --- RENDER STREAMS ---
+  const streamsDiv = document.querySelector('.streams');
+  streams.forEach((s,i) => {
+    const div = document.createElement('div');
+    div.className = 'stream';
+    div.innerHTML = `<span>${s.name}</span><input type="number" id="stream-${i}" value="${s.earned}"> / ₹${s.target.toLocaleString()}`;
+    streamsDiv.appendChild(div);
+
+    document.getElementById(`stream-${i}`).addEventListener('input', (e)=>{
+      streams[i].earned = Number(e.target.value) || 0;
+      updateChart();
+    });
+  });
+
+  // --- RENDER TASKS ---
+  const tasksDiv = document.querySelector('.tasks');
+  tasks.forEach((t,i) => {
+    const div = document.createElement('div');
+    div.className = 'task';
+    div.innerHTML = `<label><input type="checkbox" id="task-${i}"> ${t}</label>`;
+    tasksDiv.appendChild(div);
+  });
+
+  // --- CHART ---
+  const ctx = document.getElementById('chart').getContext('2d');
+  const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: months.map(m => m.name),
+      datasets: [
+        { label: 'Target', data: months.map(m=>m.target), borderColor: '#a78bfa', backgroundColor: '#a78bfa33', tension: 0.4 },
+        { label: 'Earned', data: streams.map(s=>s.earned).concat(Array(months.length - streams.length).fill(0)), borderColor: '#34d399', backgroundColor: '#34d39933', tension: 0.4 }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { position: 'top' } },
+      scales: { y: { beginAtZero: true, ticks: { callback: v => '₹' + v.toLocaleString() } } }
+    }
+  });
+
+  function updateChart() {
+    chart.data.datasets[1].data = streams.map(s=>s.earned).concat(Array(months.length - streams.length).fill(0));
+    chart.update();
+  }
+
+  // --- CSV EXPORT ---
+  function exportCSV() {
+    let csv = 'Type,Name,Target,Earned\n';
+    streams.forEach(s => { csv += `Stream,${s.name},${s.target},${s.earned}\n`; });
+    tasks.forEach((t,i) => { 
+      const done = document.getElementById(`task-${i}`).checked ? 1 : 0;
+      csv += `Task,${t},,${done}\n`; 
+    });
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = '1-lakh-roadmap.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  document.getElementById('exportBtn').addEventListener('click', exportCSV);
+
+</script>
+</body>
+</html>
+
