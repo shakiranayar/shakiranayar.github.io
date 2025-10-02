@@ -1,51 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>1-Lakh Tracker</title>
-<link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8">
+  <title>1-Lakh Tracker</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-<header>
-  <h1>1-Lakh Goal Tracker</h1>
-</header>
-<main>
-  <div class="section">
-    <h2>Overall Progress</h2>
-    <canvas id="overallChart"></canvas>
-  </div>
-  <div class="section">
-    <h2>Navigate</h2>
+  <header>
+    <h1>1-Lakh Tracker</h1>
+  </header>
+  <main>
+    <div class="section">
+      <h2>Overall Progress</h2>
+      <canvas id="overallChart"></canvas>
+      <div class="progress-bar" id="overallProgressBar">
+        <div class="progress-bar-fill"></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Income Streams</h2>
+      <canvas id="streamPie"></canvas>
+    </div>
+
     <div class="nav-buttons">
       <a href="daily.html"><button>Daily Tasks</button></a>
       <a href="weekly.html"><button>Weekly Progress</button></a>
-      <a href="monthly.html"><button>Monthly Overview</button></a>
+      <a href="monthly.html"><button>Monthly Progress</button></a>
     </div>
-  </div>
-</main>
-<footer>Plug-and-play roadmap tracker • Client-side</footer>
-<script src="script.js"></script>
-<script>
-  // Overall chart
-  const ctx = document.getElementById('overallChart').getContext('2d');
-  const overallChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Goal', 'Achieved'],
-      datasets: [{
-        label: 'Amount (₹)',
-        data: [100000, totalEarned()], // totalEarned() calculated in script.js
-        backgroundColor: ['#f87171','#34d399']
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: { legend: { display: false } },
-      scales: { y: { beginAtZero: true } }
-    }
-  });
-</script>
+  </main>
+  <footer>Made by Shakira Nayar</footer>
+  <script src="script.js"></script>
 </body>
 </html>

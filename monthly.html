@@ -1,30 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Monthly Overview</title>
-<link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8">
+  <title>Monthly Progress - 1-Lakh Tracker</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-<header>
-  <h1>Monthly Overview</h1>
-</header>
-<main>
-  <div class="section months">
-    <canvas id="monthlyChart"></canvas>
-  </div>
-  <div style="text-align:center; margin-top:1rem;">
-    <button id="exportMonthlyCSV">Export Monthly CSV</button>
-  </div>
-  <div style="text-align:center; margin-top:1rem;">
-    <a href="index.html"><button>Back to Home</button></a>
-  </div>
-</main>
-<script src="script.js"></script>
-<script>
-  renderMonthlyChart();
-</script>
+  <header>
+    <h1>Monthly Progress</h1>
+  </header>
+  <main>
+    <div class="section">
+      <h2>Monthly Earned vs Target</h2>
+      <canvas id="overallChart"></canvas>
+      <div class="progress-bar" id="monthlyProgressBar">
+        <div class="progress-bar-fill"></div>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <a href="index.html"><button>Home</button></a>
+      <a href="daily.html"><button>Daily Tasks</button></a>
+      <a href="weekly.html"><button>Weekly Progress</button></a>
+    </div>
+  </main>
+  <footer>Made by Shakira Nayar</footer>
+  <script src="script.js"></script>
 </body>
 </html>

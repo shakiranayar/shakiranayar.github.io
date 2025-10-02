@@ -1,29 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Weekly Progress</title>
-<link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8">
+  <title>Weekly Progress - 1-Lakh Tracker</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <h1>Weekly Streams & Tasks</h1>
-</header>
-<main>
-  <div class="section streams" id="weeklyStreams"></div>
-  <div class="section tasks" id="weeklyTasks"></div>
-  <div style="text-align:center; margin-top:1rem;">
-    <button id="exportWeeklyCSV">Export Weekly CSV</button>
-  </div>
-  <div style="text-align:center; margin-top:1rem;">
-    <a href="index.html"><button>Back to Home</button></a>
-  </div>
-</main>
-<script src="script.js"></script>
-<script>
-  renderWeeklyStreamsTasks();
-</script>
+  <header>
+    <h1>Weekly Progress</h1>
+  </header>
+  <main>
+    <div class="section">
+      <h2>Streams</h2>
+      <div id="weeklyStreams" class="streams"></div>
+    </div>
+
+    <div class="section">
+      <h2>Weekly Tasks</h2>
+      <div id="weeklyTasks" class="weekly-grid"></div>
+      <div class="progress-bar" id="weeklyProgressBar">
+        <div class="progress-bar-fill"></div>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <a href="index.html"><button>Home</button></a>
+      <a href="daily.html"><button>Daily Tasks</button></a>
+      <a href="monthly.html"><button>Monthly Progress</button></a>
+    </div>
+  </main>
+  <footer>Made by Shakira Nayar</footer>
+  <script src="script.js"></script>
 </body>
 </html>

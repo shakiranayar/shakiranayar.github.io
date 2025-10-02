@@ -1,12 +1,151 @@
-body { font-family: Arial,sans-serif; background: linear-gradient(to bottom,#f5f3ff,#ede9fe); color:#333; margin:0; padding:0; }
-header { background-color: #7c3aed; color:white; padding:1rem 2rem; text-align:center; }
-h1,h2 { margin:0; }
-main { max-width:900px; margin:2rem auto; padding:0 1rem; }
-.section { background:white; padding:1.5rem; border-radius:1rem; margin-bottom:2rem; box-shadow:0 5px 15px rgba(0,0,0,0.05); }
-.streams, .tasks, .months { display:flex; flex-direction:column; gap:1rem; }
-.stream, .task { display:flex; justify-content:space-between; align-items:center; padding:0.5rem 1rem; background:#f3e8ff; border-radius:0.5rem; }
-button { background-color:#7c3aed; color:white; border:none; padding:0.5rem 1rem; border-radius:0.5rem; cursor:pointer; margin:0.3rem; }
-button:hover { background-color:#5b21b6; }
-a button { text-decoration:none; }
-canvas { width:100%; max-height:300px; }
-.nav-buttons { display:flex; flex-direction:column; gap:0.5rem; align-items:center; }
+/* --- Global Styles --- */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #ebddd1;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #800020;
+  color: white;
+  padding: 1rem 2rem;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+main {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* --- Sections / Cards --- */
+.section {
+  background-color: #f4e6e1;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.section:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+/* --- Buttons --- */
+button {
+  background-color: #800020;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+button:hover {
+  background-color: #b03060;
+  transform: translateY(-2px);
+}
+
+a button {
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* --- Task / Stream Grids --- */
+.daily-grid, .weekly-grid, .streams, .tasks, .months {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.stream, .task {
+  background-color: #f4e6e1;
+  padding: 0.8rem 1rem;
+  border-radius: 0.6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stream:hover, .task:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+}
+
+.stream input[type="number"] {
+  width: 80px;
+  text-align: right;
+  padding: 0.3rem 0.4rem;
+  border-radius: 0.4rem;
+  border: 1px solid #ccc;
+}
+
+/* --- Progress Bars --- */
+.progress-bar {
+  height: 20px;
+  background-color: #f4e6e1;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+  margin-top: 0.5rem;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #800020, #b03060);
+  width: 0;
+  border-radius: 10px;
+  transition: width 0.5s ease-in-out;
+}
+
+/* --- Chart Styling --- */
+canvas {
+  width: 100% !important;
+  max-height: 350px;
+}
+
+/* --- Navigation --- */
+.nav-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* --- Footer --- */
+footer {
+  text-align: center;
+  padding: 1rem;
+  color: #555;
+  font-size: 0.9rem;
+  margin-top: 2rem;
+}
+
+/* --- Responsive --- */
+@media(max-width: 600px){
+  .streams, .tasks, .months, .daily-grid, .weekly-grid {
+    grid-template-columns: 1fr;
+  }
+
+  header h1 { font-size: 1.5rem; }
+  button { padding: 0.5rem 1rem; }
+}
